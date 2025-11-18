@@ -6,6 +6,13 @@ export default function Layout({ children }) {
   const [open, setOpen] = useState(false);
   return (
     <>
+      {/* Desktop layout (xl and up) */}
+      <div className="hidden xl:grid grid-cols-[16rem_1fr] h-full gap-12">
+        <SideNavigation />
+        <div className="py-1">{children}</div>
+      </div>
+
+      {/* Mobile & Tablet layout (below xl) */}
       <div className="xl:hidden relative h-full flex flex-col">
         <div className="flex items-center gap-4 px-4 py-4 border-b border-primary-900">
           <Hamburger isOpen={open} toggle={() => setOpen(!open)} />
