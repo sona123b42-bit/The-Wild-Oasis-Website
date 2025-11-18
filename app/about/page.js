@@ -10,13 +10,13 @@ export const revalidate = 3600;
 export default async function Page() {
   const cabins = await getCabins();
   return (
-    <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">
-      <div className="col-span-3">
-        <h1 className="text-4xl mb-10 text-accent-400 font-medium">
+    <div className="grid grid-cols-1 xl:grid-cols-5 gap-x-6 xl:gap-x-24 gap-y-12 xl:gap-y-32 text-base xl:text-lg items-center">
+      <div className="xl:col-span-3 text-center xl:text-left">
+        <h1 className="text-2xl xl:text-4xl mb-6 xl:mb-10 text-accent-400 font-medium">
           Welcome to The Wild Oasis
         </h1>
 
-        <div className="space-y-8">
+        <div className="space-y-5 xl:space-y-8 text-primary-200">
           <p>
             Where nature&apos;s beauty and comfortable living blend seamlessly.
             Hidden away in the heart of the Italian Dolomites, this is your
@@ -38,23 +38,28 @@ export default async function Page() {
         </div>
       </div>
 
-      <div className="col-span-2">
+      <div className="xl:col-span-2">
         <Image
           src={about1}
           alt="Family sitting around a fire pit in front of cabin"
+          className="w-full h-auto rounded-sm"
         />
       </div>
 
-      <div className="col-span-2">
-        <Image src={about2} alt="Family that manages The Wild Oasis" />
+      <div className="xl:col-span-2">
+        <Image
+          src={about2}
+          alt="Family that manages The Wild Oasis"
+          className="w-full h-auto rounded-sm"
+        />
       </div>
 
-      <div className="col-span-3">
-        <h1 className="text-4xl mb-10 text-accent-400 font-medium">
+      <div className="xl:col-span-3 text-center xl:text-left">
+        <h1 className="text-2xl xl:text-4xl mb-6 xl:mb-10 text-accent-400 font-medium">
           Managed by our family since 1962
         </h1>
 
-        <div className="space-y-8">
+        <div className="space-y-5 xl:space-y-8 text-primary-200">
           <p>
             Since 1962, The Wild Oasis has been a cherished family-run retreat.
             Started by our grandparents, this haven has been nurtured with love
@@ -70,11 +75,8 @@ export default async function Page() {
             is like coming home.
           </p>
 
-          <div>
-            <Link
-              href="/cabins"
-              className="inline-block mt-4 bg-accent-500 px-8 py-5 text-primary-800 text-lg font-semibold hover:bg-accent-600 transition-all"
-            >
+          <div className="block w-full xl:inline-block xl:w-auto bg-accent-500 px-6 xl:px-8 py-4 xl:py-5 text-primary-800 text-base xl:text-lg font-semibold hover:bg-accent-600 transition-all text-center">
+            <Link href="/cabins" className="block w-full">
               Explore our luxury cabins
             </Link>
           </div>
