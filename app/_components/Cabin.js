@@ -31,7 +31,7 @@ function Cabin({ cabin }) {
           </h3>
 
           <TextExpander className="text-base sm:text-lg text-primary-300 mb-6 sm:mb-10">
-            {description}
+            {description || ""}
           </TextExpander>
 
           <ul className="flex flex-col gap-3 sm:gap-4 mb-6 sm:mb-7 mt-6">

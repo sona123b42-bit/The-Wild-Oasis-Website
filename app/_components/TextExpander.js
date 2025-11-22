@@ -3,9 +3,13 @@ import { useState } from "react";
 
 function TextExpander({ children }) {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  // 🛡️ ALWAYS convert children into a string
+  const text = String(children || "");
+
   const displayText = isExpanded
-    ? children
-    : children.split(" ").slice(0, 40).join(" ") + "...";
+    ? text
+    : text.split(" ").slice(0, 40).join(" ") + "...";
 
   return (
     <span>
