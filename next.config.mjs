@@ -5,19 +5,40 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbo: {
+    enabled: false,
+  },
+
   turbopack: {
     enabled: false,
-    root: __dirname,
   },
+
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "10mb",
+    },
+  },
+
   images: {
     remotePatterns: [
+      // Existing bucket — KEEP THIS
       {
         protocol: "https",
-        hostname: "uxgjntbwscvjvrvokima.supabase.co", // <-- replace with your Supabase project ref
-        port: "",
+        hostname: "uxgjntbwscvjvrvokima.supabase.co",
         pathname: "/storage/v1/object/public/cabin-image/**",
       },
+
+      // ➕ ADD THIS NEW ONE FOR PROFILE PHOTOS
+      {
+        protocol: "https",
+        hostname: "uxgjntbwscvjvrvokima.supabase.co",
+        pathname: "/storage/v1/object/public/avatars/**",
+      },
     ],
+  },
+
+  compiler: {
+    styledComponents: true,
   },
 };
 

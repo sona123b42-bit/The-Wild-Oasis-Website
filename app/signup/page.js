@@ -1,43 +1,68 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { SignInAction, googleSignIn } from "../_lib/actions";
+import { signUpAction, googleSignIn } from "../_lib/actions";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
-import SpinnerMini from "./SpinnerMini";
-function SignInButton() {
+import { signIn } from "next-auth/react";
+import SpinnerMini from "../_components/SpinnerMini";
+export default function SignupPage() {
   const [isPending, setIsPending] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const isMatch = passwordConfirm === password && passwordConfirm !== "";
   const router = useRouter();
   async function handleSubmit(e) {
     e.preventDefault();
     setIsPending(true);
 
     const form = new FormData(e.target);
-    const email = form.get("email");
-    const password = form.get("password");
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      // 1️⃣ Create user in DB
+      const { email, password } = await signUpAction(form);
 
-    if (result.error) {
-      toast.error("Invalid email or password");
-    } else {
-      toast.success("Logged in!");
+      // 2️⃣ Auto-login instantly (same as login)
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        toast.error("Account created but auto-login failed");
+        return;
+      }
+
+      toast.success("Account created successfully!");
       router.push("/");
+    } catch (err) {
+      toast.error(err.message || "Signup failed");
+    } finally {
+      setIsPending(false);
     }
-
-    setIsPending(false);
   }
+
   return (
     <div className="mx-auto max-w-[45rem] bg-primary-700 shadow-xl shadow-black/10 p-12 rounded-md mt-20">
       <h2 className="text-center text-[2.4rem] mb-8 font-bold text-accent-500">
-        Log in to your account
+        Create Account
       </h2>
-
       <form onSubmit={handleSubmit}>
+        {/* FULL NAME */}
+        <div className="mb-10">
+          <label className="block text-[1.6rem] font-bold mb-3">
+            Full Name
+          </label>
+          <input
+            name="fullName"
+            type="text"
+            placeholder="Your name"
+            required
+            disabled={isPending}
+            className="block w-full bg-[#f2f2f2] text-gray-900 text-[1.5rem] px-7 py-5 rounded-md border-transparent border-t-[3px] border-b-[3px] focus:outline-none focus:border-b-[#55c57a] focus:invalid:border-b-[#ff7730] transition-all"
+          />
+        </div>
+
         {/* EMAIL */}
         <div className="mb-10">
           <label className="block text-[1.6rem] font-bold mb-3">Email</label>
@@ -60,36 +85,50 @@ function SignInButton() {
             placeholder="••••••••"
             required
             disabled={isPending}
+            onChange={(e) => setPassword(e.target.value)}
             className="block w-full bg-[#f2f2f2] text-gray-900 text-[1.5rem] px-7 py-5 rounded-md border-transparent border-t-[3px] border-b-[3px] focus:outline-none focus:border-b-[#55c57a] focus:invalid:border-b-[#ff7730] transition-all"
           />
         </div>
 
-        <div className="flex justify-end mb-8 -mt-6">
-          <a
-            href="/forgotpassword"
-            className="text-accent-500 text-[1.4rem] font-semibold hover:underline"
-          >
-            Forgot password?
-          </a>
+        {/* CONFIRM PASSWORD */}
+        <div className="mb-10">
+          <label className="block text-[1.6rem] font-bold mb-3">
+            Confirm Password
+          </label>
+          <input
+            name="confirmPassword"
+            type="password"
+            placeholder="••••••••"
+            required
+            disabled={isPending}
+            onChange={(e) => setPasswordConfirm(e.target.value)}
+            className={`block w-full bg-[#f2f2f2] text-gray-900 text-[1.5rem] px-7 py-5 rounded-md border-transparent border-t-[3px] border-b-[3px] transition-all ${
+              passwordConfirm !== "" && !isMatch ? "border-b-[#ff7730]" : ""
+            } ${isMatch ? "border-b-[#55c57a]" : ""}`}
+          />
         </div>
+
         {/* SIGN UP BUTTON */}
         <button className="w-full bg-accent-500 text-white py-4 text-[1.6rem] rounded-md hover:bg-accent-600 transition flex items-center justify-center">
-          {!isPending ? "Log in" : <SpinnerMini />}
+          {!isPending ? "Sign up" : <SpinnerMini />}
         </button>
       </form>
+
       {/* SWITCH TO LOGIN */}
       <p className="text-center mt-10 text-[1.4rem]">
-        Don&apos;t have an account?
-        <a href="/signup" className="font-bold text-accent-500">
-          Sign up
+        Already have an account?{" "}
+        <a href="/login" className="font-bold text-accent-500">
+          Log in
         </a>
       </p>
+
       <div className="flex items-center my-8">
         <div className="flex-grow border-t border-gray-300"></div>
         <span className="mx-4 text-gray-500 text-[1.4rem]">or</span>
         <div className="flex-grow border-t border-gray-300"></div>
       </div>
-      {/* google login */}
+
+      {/* GOOGLE SIGNUP */}
       <button
         onClick={() => {
           if (!isPending) googleSignIn();
@@ -104,7 +143,7 @@ function SignInButton() {
               alt="Google logo"
               className="w-11 h-11"
             />
-            <span>Log in with Google</span>
+            <span>Sign up with Google</span>
           </>
         ) : (
           <SpinnerMini />
@@ -113,5 +152,3 @@ function SignInButton() {
     </div>
   );
 }
-
-export default SignInButton;

@@ -5,8 +5,9 @@ import { auth, signIn, signOut } from "./auth";
 import supabase from "./supabase";
 import { getBookings } from "./data-service";
 import { redirect } from "next/navigation";
+import { randomUUID } from "crypto";
 
-export async function signInAction() {
+export async function googleSignIn() {
   await signIn("google", { redirectTo: "/account" });
 }
 export async function signOutAction() {
@@ -114,4 +115,63 @@ export async function createBooking(bookingData, formData) {
   }
   revalidatePath(`/cabins/${bookingData.cabinId}`);
   redirect("/cabins/thankyou");
+}
+
+// sign up manually
+export async function signUpAction(formData) {
+  const fullName = formData.get("fullName");
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/auth/signup`, {
+    method: "POST",
+    body: JSON.stringify({ fullName, email, password }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) throw new Error(data.error || "Signup failed");
+
+  // Return credentials to client
+  return { email, password };
+}
+export async function UpdateInfo(formData) {
+  const session = await auth();
+  if (!session) throw new Error("User not authenticated");
+
+  const userId = session.user.guestId;
+  const fullName = formData.get("fullName");
+  const photoFile = formData.get("photo");
+
+  let updateData = {};
+
+  // UPDATE NAME
+  if (fullName && fullName.trim().length > 0) {
+    updateData.fullName = fullName;
+  }
+
+  // UPDATE PHOTO
+  if (photoFile && photoFile.size > 0) {
+    const fileName = `avatar-${randomUUID()}`;
+
+    const { error: uploadErr } = await supabase.storage
+      .from("avatars")
+      .upload(fileName, photoFile, { upsert: false });
+
+    if (uploadErr) throw new Error(uploadErr.message);
+
+    const { data: urlData } = supabase.storage
+      .from("avatars")
+      .getPublicUrl(fileName);
+
+    updateData.image = urlData.publicUrl;
+  }
+
+  // UPDATE GUEST ROW
+  await supabase.from("guests").update(updateData).eq("id", userId);
+
+  // REFRESH ONLY ACCOUNT PAGE
+  revalidatePath("/account");
+
+  redirect("/account");
 }

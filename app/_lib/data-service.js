@@ -142,10 +142,22 @@ export async function getSettings() {
 export async function getCountries() {
   try {
     const res = await fetch(
-      "https://restcountries.com/v2/all?fields=name,flag"
+      "https://countriesnow.space/api/v0.1/countries/flag/images",
+      { cache: "no-store" }
     );
-    const countries = await res.json();
-    return countries;
+
+    if (!res.ok) throw new Error("API failed");
+
+    const data = await res.json();
+
+    // API returns: { data: [{ name, flag }], error: false }
+    const countries = data.data.map((c) => ({
+      name: c.name,
+      flag: c.flag,
+    }));
+
+    // sort alphabetically
+    return countries.sort((a, b) => a.name.localeCompare(b.name));
   } catch {
     throw new Error("Could not fetch countries");
   }

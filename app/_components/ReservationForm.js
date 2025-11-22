@@ -30,8 +30,8 @@ function ReservationForm({ cabin, user }) {
         <div className="flex gap-2 sm:gap-4 items-center">
           <img
             referrerPolicy="no-referrer"
-            className="h-6 sm:h-8 rounded-full"
-            src={user.image}
+            className="h-6 sm:h-8 rounded-full object-cover"
+            src={user.image || "/default.jpg"}
             alt={user.name}
           />
           <p className="text-sm sm:text-base">{user.name}</p>

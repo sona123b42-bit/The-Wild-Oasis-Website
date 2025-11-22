@@ -1,8 +1,10 @@
-import Link from "next/link";
-import { auth } from "../_lib/auth";
+"use client";
 
-export default async function Navigation() {
-  const session = await auth();
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+
+export default function Navigation() {
+  const { data: session, status } = useSession();
 
   return (
     <nav className="z-10 text-lg sm:text-xl">
@@ -26,25 +28,23 @@ export default async function Navigation() {
         </li>
 
         <li>
-          {session?.user?.image ? (
+          {session?.user ? (
             <Link
               href="/account"
-              className="hover:text-accent-400 transition-colors flex items-center gap-2 sm:gap-4"
+              className="flex items-center gap-2 sm:gap-4 hover:text-accent-400"
             >
               <img
-                src={session.user.image}
-                className="h-6 sm:h-8 rounded-full"
-                alt={session.user.name}
-                referrerPolicy="no-referrer"
+                src={session.user.image || "/default.jpg"}
+                className="h-6 w-6 sm:h-8 sm:w-8 rounded-full object-cover"
               />
-              <span className="hidden sm:inline">Guest area</span>
+              <span className="hidden sm:inline">{session.user.name}</span>
             </Link>
           ) : (
             <Link
-              href="/account"
+              href="/login"
               className="hover:text-accent-400 transition-colors"
             >
-              Guest area
+              Log in
             </Link>
           )}
         </li>

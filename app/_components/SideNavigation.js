@@ -20,7 +20,7 @@ const navLinks = [
     icon: <CalendarDaysIcon className="h-5 w-5 text-primary-600" />,
   },
   {
-    name: "Guest profile",
+    name: "Check-in Details",
     href: "/account/profile",
     icon: <UserIcon className="h-5 w-5 text-primary-600" />,
   },

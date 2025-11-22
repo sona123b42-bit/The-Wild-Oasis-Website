@@ -11,7 +11,7 @@ export default async function Reservation({ cabin }) {
   ]);
   const sesson = await auth();
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 min-h-[350px] xl:min-h-[400px]">
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 min-h-[350px]">
       <div className="border border-primary-800">
         <DateSelector
           settings={settings}
