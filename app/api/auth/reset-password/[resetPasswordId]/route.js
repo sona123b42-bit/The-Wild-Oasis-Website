@@ -1,4 +1,4 @@
-import { supabase } from "@/app/_lib/supabase";
+import supabase from "@/app/_lib/supabase";
 import bcrypt from "bcryptjs";
 
 export async function POST(req) {
