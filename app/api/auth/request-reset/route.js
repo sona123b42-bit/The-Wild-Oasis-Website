@@ -32,7 +32,7 @@ export async function POST(req) {
   ]);
 
   // 3. Build reset URL
-  const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password/${token}`;
+  const resetUrl = `${process.env.NEXTAUTH_URL}/resetpassword/${token}`;
 
   // ⭐ 4. Send email through Brevo
   await sendResetEmail(email, resetUrl);

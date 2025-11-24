@@ -6,8 +6,8 @@ import Credentials from "next-auth/providers/credentials";
 const authConfig = {
   providers: [
     Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      clientId: process.env.AUTH_GOODLE_ID,
+      clientSecret: process.env.AUTH_GOODLE_SECRET,
     }),
 
     Credentials({
