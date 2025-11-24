@@ -23,7 +23,7 @@ export default function Page({ params }) {
       toast.success("Password changed successully!");
       router.push("/");
     } catch (err) {
-      toast.error(err.message || "Signup failed");
+      toast.error("Signup failed");
     } finally {
       setIsPending(false);
     }
