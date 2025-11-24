@@ -1,20 +1,12 @@
-"use client";
-
-import { useSession } from "next-auth/react";
-import Spinner from "../_components/Spinner";
+import { auth } from "../_lib/auth";
 import AccountForm from "../_components/AccountForm";
 
-export default function AccountPage() {
-  const { data: session, status } = useSession();
+export const metadata = {
+  title: "Guest Area",
+};
 
-  // While session loads → show spinner only for the form
-  if (status === "loading") {
-    return (
-      <div className="flex justify-center py-20">
-        <Spinner />
-      </div>
-    );
-  }
+export default async function AccountPage() {
+  const session = await auth();
 
   return (
     <div>

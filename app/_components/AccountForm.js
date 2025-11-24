@@ -4,18 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Button from "./Button";
 import { UpdateInfo } from "../_lib/actions";
-import { useSession } from "next-auth/react";
+
 export default function AccountForm({ session }) {
   const [photoPreview, setPhotoPreview] = useState(session?.user?.image);
-  const { update } = useSession();
-  async function handleAction(formData) {
-    await UpdateInfo(formData); // ⛅ server action updates DB
 
-    await update(); // ⭐ INSTANT update NextAuth session
-  }
   return (
     <form
-      action={handleAction}
+      action={UpdateInfo}
       className="bg-primary-900 py-8 px-12 text-lg flex flex-col gap-6"
     >
       {/* FULL NAME */}

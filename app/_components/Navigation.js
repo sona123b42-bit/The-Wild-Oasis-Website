@@ -1,11 +1,6 @@
-"use client";
-
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-export default function Navigation() {
-  const { data: session, status } = useSession();
-
+export default function Navigation({ session }) {
   return (
     <nav className="z-10 text-lg sm:text-xl">
       <ul className="flex gap-6 sm:gap-16 items-center">

@@ -13,18 +13,25 @@ const nextConfig = {
 
   images: {
     remotePatterns: [
-      // Existing bucket — KEEP THIS
+      // Existing Supabase bucket (cabins)
       {
         protocol: "https",
         hostname: "uxgjntbwscvjvrvokima.supabase.co",
         pathname: "/storage/v1/object/public/cabin-image/**",
       },
 
-      // ➕ ADD THIS NEW ONE FOR PROFILE PHOTOS
+      // Existing Supabase bucket (avatars)
       {
         protocol: "https",
         hostname: "uxgjntbwscvjvrvokima.supabase.co",
         pathname: "/storage/v1/object/public/avatars/**",
+      },
+
+      // ⭐ NEW: Allow country flags from flagcdn.com
+      {
+        protocol: "https",
+        hostname: "flagcdn.com",
+        pathname: "/**",
       },
     ],
   },
