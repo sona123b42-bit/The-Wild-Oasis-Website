@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import SpinnerMini from "@/app/_components/SpinnerMini";
 export default function Page({ params }) {
-  const token = params.resetPasswordId;
+  const token = params.resetpasswordId;
   const [isPending, setIsPending] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -24,7 +24,7 @@ export default function Page({ params }) {
       });
       const data = await res.json();
       toast.success("Password changed successully!");
-      router.push("/");
+      router.push("/login");
     } catch (err) {
       toast.error("Signup failed");
     } finally {

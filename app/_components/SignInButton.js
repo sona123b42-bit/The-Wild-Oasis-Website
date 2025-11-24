@@ -15,6 +15,7 @@ function SignInButton() {
     const form = new FormData(e.target);
     const email = form.get("email");
     const password = form.get("password");
+    console.log("LOGIN EMAIL:", email);
 
     const result = await signIn("credentials", {
       email,
