@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import SpinnerMini from "../_components/SpinnerMini";
+import SpinnerMini from "@/app/_components/SpinnerMini";
 export default function Page({ params }) {
   const token = params.resetPasswordId;
   const [isPending, setIsPending] = useState(false);
