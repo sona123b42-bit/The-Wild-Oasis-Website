@@ -123,7 +123,7 @@ export async function signUpAction(formData) {
   const email = formData.get("email");
   const password = formData.get("password");
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/auth/signup`, {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/signup`, {
     method: "POST",
     body: JSON.stringify({ fullName, email, password }),
   });

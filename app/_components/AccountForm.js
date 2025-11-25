@@ -71,25 +71,25 @@ export default function AccountForm({ session }) {
             className="h-16 w-16 rounded-full object-cover shadow-sm"
           />
 
-          <div>
-            <input
-              type="file"
-              id="photo"
-              name="photo"
-              accept="image/*"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) setPhotoPreview(URL.createObjectURL(file));
-              }}
-            />
-
+          <div className="relative w-fit">
             <label
               htmlFor="photo"
               className="text-accent-500 border-b border-accent-500 pb-[2px] cursor-pointer hover:text-accent-300 hover:border-accent-300 transition"
             >
               Choose new photo
             </label>
+
+            <input
+              type="file"
+              id="photo"
+              name="photo"
+              accept="image/*"
+              className="absolute left-0 top-0 h-full w-full opacity-0 cursor-pointer"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) setPhotoPreview(URL.createObjectURL(file));
+              }}
+            />
           </div>
         </div>
       </div>
