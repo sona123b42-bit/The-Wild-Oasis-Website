@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import { ReservationProvider } from "./_components/ReservationContext";
 
 import { auth } from "./_lib/auth";
+import { SessionProvider } from "next-auth/react";
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
@@ -26,13 +27,15 @@ export default async function RootLayout({ children }) {
       <body
         className={`${josefin.className} bg-primary-950 text-primary-100 min-h-screen flex flex-col`}
       >
-        <Header session={session} />
+        <SessionProvider session={session}>
+          <Header />
 
-        <div className="flex-1 px-2 py-4 sm:px-8 sm:py-12 grid">
-          <main className="max-w-7xl mx-auto w-full">
-            <ReservationProvider>{children}</ReservationProvider>
-          </main>
-        </div>
+          <div className="flex-1 px-2 py-4 sm:px-8 sm:py-12 grid">
+            <main className="max-w-7xl mx-auto w-full">
+              <ReservationProvider>{children}</ReservationProvider>
+            </main>
+          </div>
+        </SessionProvider>
 
         <Toaster
           position="top-center"

@@ -33,41 +33,15 @@ function SignInButton() {
     setIsPending(false);
   }
   return (
-    <div
-      className="
-    mx-auto 
-    w-[90%] 
-    max-w-[45rem]
-    bg-primary-700 
-    shadow-xl shadow-black/10 
-    p-6 sm:p-10 lg:p-12 
-    rounded-md 
-    mt-10 sm:mt-16 lg:mt-20
-  "
-    >
-      <h2
-        className="
-      text-center 
-      text-2xl sm:text-3xl lg:text-[2.4rem] 
-      mb-6 sm:mb-8 
-      font-bold 
-      text-accent-500
-    "
-      >
+    <div className="mx-auto w-[90%] max-w-[45rem] bg-primary-700 shadow-xl shadow-black/10 p-6 sm:p-10 lg:p-12 rounded-md mt-10 sm:mt-16 lg:mt-20">
+      <h2 className="text-center text-2xl sm:text-3xl lg:text-[2.4rem] mb-6 sm:mb-8 font-bold text-accent-500">
         Log in to your account
       </h2>
 
       <form onSubmit={handleSubmit}>
         {/* EMAIL */}
         <div className="mb-6 sm:mb-8">
-          <label
-            className="
-          block 
-          text-[1.2rem] sm:text-[1.4rem] lg:text-[1.6rem] 
-          font-bold 
-          mb-2 sm:mb-3
-        "
-          >
+          <label className="block text-[1.2rem] sm:text-[1.4rem] lg:text-[1.6rem] font-bold mb-2 sm:mb-3">
             Email
           </label>
           <input
@@ -76,33 +50,13 @@ function SignInButton() {
             placeholder="you@example.com"
             required
             disabled={isPending}
-            className="
-          block w-full 
-          bg-[#f2f2f2] 
-          text-gray-900 
-          text-[1.2rem] sm:text-[1.4rem] lg:text-[1.5rem]
-          px-5 sm:px-6 lg:px-7 
-          py-3 sm:py-4 lg:py-5 
-          rounded-md 
-          border-transparent 
-          border-t-[3px] border-b-[3px] 
-          focus:outline-none 
-          focus:border-b-[#55c57a] 
-          transition-all
-        "
+            className="block w-full bg-[#f2f2f2] text-gray-900 text-[1.2rem] sm:text-[1.4rem] lg:text-[1.5rem] px-5 sm:px-6 lg:px-7 py-3 sm:py-4 lg:py-5 rounded-md border-transparent border-t-[3px] border-b-[3px] focus:outline-none focus:border-b-[#55c57a] transition-all"
           />
         </div>
 
         {/* PASSWORD */}
         <div className="mb-6 sm:mb-8">
-          <label
-            className="
-          block 
-          text-[1.2rem] sm:text-[1.4rem] lg:text-[1.6rem] 
-          font-bold 
-          mb-2 sm:mb-3
-        "
-          >
+          <label className="block text-[1.2rem] sm:text-[1.4rem] lg:text-[1.6rem] font-bold mb-2 sm:mb-3">
             Password
           </label>
           <input
@@ -111,20 +65,7 @@ function SignInButton() {
             placeholder="••••••••"
             required
             disabled={isPending}
-            className="
-          block w-full 
-          bg-[#f2f2f2] 
-          text-gray-900 
-          text-[1.2rem] sm:text-[1.4rem] lg:text-[1.5rem]
-          px-5 sm:px-6 lg:px-7 
-          py-3 sm:py-4 lg:py-5 
-          rounded-md 
-          border-transparent 
-          border-t-[3px] border-b-[3px] 
-          focus:outline-none 
-          focus:border-b-[#55c57a] 
-          transition-all
-        "
+            className="block w-full bg-[#f2f2f2] text-gray-900 text-[1.2rem] sm:text-[1.4rem] lg:text-[1.5rem] px-5 sm:px-6 lg:px-7 py-3 sm:py-4 lg:py-5 rounded-md border-transparent border-t-[3px] border-b-[3px] focus:outline-none focus:border-b-[#55c57a] transition-all"
           />
         </div>
 
@@ -141,17 +82,7 @@ function SignInButton() {
         {/* LOGIN BUTTON */}
         <button
           disabled={isPending}
-          className="
-        w-full 
-        bg-accent-500 
-        text-white 
-        py-3 sm:py-4 lg:py-4
-        text-[1.3rem] sm:text-[1.5rem] lg:text-[1.6rem] 
-        rounded-md 
-        hover:bg-accent-600 
-        transition 
-        flex items-center justify-center
-      "
+          className="w-full bg-accent-500 text-white py-3 sm:py-4 lg:py-4 text-[1.3rem] sm:text-[1.5rem] lg:text-[1.6rem] rounded-md hover:bg-accent-600 transition flex items-center justify-center"
         >
           {!isPending ? "Log in" : <SpinnerMini />}
         </button>
@@ -179,19 +110,7 @@ function SignInButton() {
         onClick={() => {
           if (!isPending) googleSignIn();
         }}
-        className="
-      w-full 
-      mt-4 sm:mt-6 
-      bg-gray-800 
-      text-white 
-      py-3 sm:py-4 lg:py-4
-      text-[1.3rem] sm:text-[1.5rem] lg:text-[1.6rem]
-      rounded-md 
-      hover:bg-gray-700 
-      transition 
-      flex items-center justify-center 
-      gap-3 sm:gap-4 lg:gap-5
-    "
+        className="w-full mt-4 sm:mt-6 bg-gray-800 text-white py-3 sm:py-4 lg:py-4 text-[1.3rem] sm:text-[1.5rem] lg:text-[1.6rem] rounded-md hover:bg-gray-700 transition flex items-center justify-center gap-3 sm:gap-4 lg:gap-5"
       >
         {!isPending ? (
           <>

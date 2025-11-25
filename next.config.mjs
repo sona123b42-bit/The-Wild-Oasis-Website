@@ -12,6 +12,7 @@ const nextConfig = {
   },
 
   images: {
+    qualities: [75, 80, 100],
     remotePatterns: [
       // Existing Supabase bucket (cabins)
       {

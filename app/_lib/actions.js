@@ -145,12 +145,10 @@ export async function UpdateInfo(formData) {
 
   let updateData = {};
 
-  // UPDATE NAME
   if (fullName && fullName.trim().length > 0) {
     updateData.fullName = fullName;
   }
 
-  // UPDATE PHOTO
   if (photoFile && photoFile.size > 0) {
     const fileName = `avatar-${randomUUID()}`;
 
@@ -168,10 +166,13 @@ export async function UpdateInfo(formData) {
   }
 
   // UPDATE GUEST ROW
-  await supabase.from("guests").update(updateData).eq("id", userId);
+  const { data: updatedUser } = await supabase
+    .from("guests")
+    .update(updateData)
+    .eq("id", userId)
+    .select()
+    .single();
 
-  // REFRESH ONLY ACCOUNT PAGE
-  revalidatePath("/account");
-
-  redirect("/account");
+  // Instead of redirect here, return the new user
+  return updatedUser;
 }
